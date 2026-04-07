@@ -1,0 +1,17 @@
+()
+( committee3 totalEvaluators 10)
+( committee1 totalEvaluators 10 committee3 totalEvaluators 10)
+( committee1 totalEvaluators 10 committee3 totalEvaluators 10 committee5 totalEvaluators 10)
+( committee1 totalEvaluators 10 committee2 totalEvaluators 10 committee3 totalEvaluators 10 committee5 totalEvaluators 10)
+( committee1 totalEvaluators 10 committee2 totalEvaluators 10 committee3 totalEvaluators 10 committee4 totalEvaluators 10 committee5 totalEvaluators 10)
+committee33 Not found
+committee3
+committee3
+( committee1 totalEvaluators 10 committee2 totalEvaluators 10 committee3 totalEvaluators 15 committee4 totalEvaluators 10 committee5 totalEvaluators 10)
+( committee1 totalEvaluators 10 committee3 totalEvaluators 15 committee4 totalEvaluators 10 committee5 totalEvaluators 10)
+( committee1 totalEvaluators 10 committee3 totalEvaluators 15 committee5 totalEvaluators 10)
+( committee3 totalEvaluators 15 committee5 totalEvaluators 10)
+( committee3 totalEvaluators 15)
+()
+( committee4 totalEvaluators 10)
+()

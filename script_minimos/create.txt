@@ -1,0 +1,8 @@
+01 C committee2 10
+02 S
+03 C committee1 10
+04 S
+05 C committee4 10
+06 S
+07 C committee3 10
+08 S

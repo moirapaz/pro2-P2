@@ -1,0 +1,85 @@
+********************
+01 C: committee committee1 totalevaluators 10
+* Create: committee committee1 totalEvaluators 10
+********************
+02 S:
+Committee committee1
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+03 C: committee committee2 totalevaluators 10
+* Create: committee committee2 totalEvaluators 10
+********************
+04 S:
+Committee committee1
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+05 N: committee committee1 project project2 category eco
+* New: committee committee1 project project2 category eco
+********************
+06 S:
+Committee committee1
+Project project2 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+07 N: committee committee1 project project2 category eco
++ Error: New not possible
+********************
+08 S:
+Committee committee1
+Project project2 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+09 N: committee committee2 project project2 category eco
+* New: committee committee2 project project2 category eco
+********************
+10 S:
+Committee committee1
+Project project2 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+Project project2 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+********************
+11 N: committee committee1 project project1 category non-eco
+* New: committee committee1 project project1 category non-eco
+********************
+12 S:
+Committee committee1
+Project project1 category non-eco numvotes 0 (0.00%)
+Project project2 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+Project project2 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)

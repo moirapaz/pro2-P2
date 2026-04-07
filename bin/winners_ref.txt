@@ -1,0 +1,137 @@
+********************
+01 C: committee committee1 totalevaluators 10
+* Create: committee committee1 totalEvaluators 10
+********************
+02 S:
+Committee committee1
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+03 C: committee committee2 totalevaluators 10
+* Create: committee committee2 totalEvaluators 10
+********************
+04 S:
+Committee committee1
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+05 N: committee committee1 project project1 category eco
+* New: committee committee1 project project1 category eco
+********************
+06 S:
+Committee committee1
+Project project1 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+07 N: committee committee1 project project2 category eco
+* New: committee committee1 project project2 category eco
+********************
+08 S:
+Committee committee1
+Project project1 category eco numvotes 0 (0.00%)
+Project project2 category eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+09 N: committee committee1 project project3 category non-eco
+* New: committee committee1 project project3 category non-eco
+********************
+10 S:
+Committee committee1
+Project project1 category eco numvotes 0 (0.00%)
+Project project2 category eco numvotes 0 (0.00%)
+Project project3 category non-eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+11 N: committee committee1 project project4 category non-eco
+* New: committee committee1 project project4 category non-eco
+********************
+12 S:
+Committee committee1
+Project project1 category eco numvotes 0 (0.00%)
+Project project2 category eco numvotes 0 (0.00%)
+Project project3 category non-eco numvotes 0 (0.00%)
+Project project4 category non-eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 0 votes from 10 voters (0.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+13 V: committee committee1 project project2
+* Vote: committee committee1 project project2 category eco numvotes 1
+********************
+14 S:
+Committee committee1
+Project project1 category eco numvotes 0 (0.00%)
+Project project2 category eco numvotes 1 (100.00%)
+Project project3 category non-eco numvotes 0 (0.00%)
+Project project4 category non-eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 1 votes from 10 voters (10.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+15 V: committee committee1 project project3
+* Vote: committee committee1 project project3 category non-eco numvotes 1
+********************
+16 S:
+Committee committee1
+Project project1 category eco numvotes 0 (0.00%)
+Project project2 category eco numvotes 1 (50.00%)
+Project project3 category non-eco numvotes 1 (50.00%)
+Project project4 category non-eco numvotes 0 (0.00%)
+Nullvotes 0
+Participation: 2 votes from 10 voters (20.00%)
+
+Committee committee2
+No projects
+Nullvotes 0
+Participation: 0 votes from 10 evaluators (0.00%)
+
+********************
+17 W:
+Committee committee1
+Category eco: Project project2 numvotes 1
+Category non-eco: Project project3 numvotes 1
+
+Committee committee2
+Category eco: No winner
+Category non-eco: No winner
+

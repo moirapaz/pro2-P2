@@ -1,0 +1,14 @@
+01 C committee1 10
+02 S
+03 C committee2 10
+04 S
+05 N committee1 project1 eco
+06 S
+07 N committee1 project2 eco
+08 S
+09 N committee2 project1 eco
+10 S
+11 V committee1 project1
+12 S
+13 D project1
+14 S
