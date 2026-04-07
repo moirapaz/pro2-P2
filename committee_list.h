@@ -1,10 +1,10 @@
 /*
  * TITLE: PROGRAMMING II LABS
  * SUBTITLE: Practical 2
- * AUTHOR 1: ***************************** LOGIN 1: **********
- * AUTHOR 2: ***************************** LOGIN 2: **********
- * GROUP: *.*
- * DATE: ** / ** / **
+ * AUTHOR 1: Moira Paz Fernández     LOGIN 1: moira.paz
+ * AUTHOR 2: Álvaro Francos Martínez LOGIN 2: alvaro.francos
+ * GROUP: 4.1
+ * DATE: 02 / 04 / 26
  */
 
 #ifndef COMMITTEE_LIST_H
