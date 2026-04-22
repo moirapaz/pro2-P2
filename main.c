@@ -1,10 +1,10 @@
 /*
  * TITLE: PROGRAMMING II LABS
  * SUBTITLE: Practical 2
- * AUTHOR 1: ***************************** LOGIN 1: **********
- * AUTHOR 2: ***************************** LOGIN 2: **********
- * GROUP: *.*
- * DATE: ** / ** / **
+ * AUTHOR 1: Moira Paz Fernández     LOGIN 1: moira.paz
+ * AUTHOR 2: Álvaro Francos Martínez LOGIN 2: alvaro.francos
+ * GROUP: 4.1
+ * DATE: 15 / 04 / 26
  */
 
 #include <stdio.h>
@@ -13,9 +13,6 @@
 #include "committee_list.h"
 
 #define MAX_BUFFER 255
-
-/* Lista global de comités */
-tListC committeeList;
 
 /* -------------------------------------------------------
  * printStats
@@ -57,23 +54,24 @@ void printStats(tItemC item) {
 /* -------------------------------------------------------
  * processCreate
  * Objetivo: Crea un nuevo comité evaluador y lo inserta
- *           ordenado en la lista global.
+ *           ordenado en la lista de comités.
  * Entradas: commandNumber      - número de orden;
  *           committeeName      - nombre del comité;
- *           totalEvaluatorsStr - nº de evaluadores (string).
+ *           totalEvaluatorsStr - nº de evaluadores (string);
+ *           listC              - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: La lista de comités está inicializada.
  * Postcondiciones: Si tiene éxito, el comité queda en la lista.
  * ------------------------------------------------------- */
 void processCreate(char *commandNumber, char *committeeName,
-                   char *totalEvaluatorsStr) {
+                   char *totalEvaluatorsStr, tListC *listC) {
     int totalEvaluators = atoi(totalEvaluatorsStr);
 
     printf("********************\n");
     printf("%s C: committee %s totalevaluators %d\n",
            commandNumber, committeeName, totalEvaluators);
 
-    if (findItemC(committeeName, committeeList) != NULLC) {
+    if (findItemC(committeeName, *listC) != NULLC) {
         printf("+ Error: Create not possible\n");
         return;
     }
@@ -85,7 +83,7 @@ void processCreate(char *commandNumber, char *committeeName,
     newItem.nullVotes       = 0;
     createEmptyListP(&newItem.projectList);
 
-    if (!insertItemC(newItem, &committeeList)) {
+    if (!insertItemC(newItem, listC)) {
         printf("+ Error: Create not possible\n");
         return;
     }
@@ -101,27 +99,28 @@ void processCreate(char *commandNumber, char *committeeName,
  * Entradas: commandNumber - número de orden;
  *           committeeName - nombre del comité;
  *           projectName   - nombre del proyecto;
- *           categoryStr   - "eco" o "non-eco".
+ *           categoryStr   - "eco" o "non-eco";
+ *           listC         - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: La lista de comités está inicializada.
  * Postcondiciones: Si tiene éxito, el proyecto queda en la
  *                  lista del comité.
  * ------------------------------------------------------- */
 void processNew(char *commandNumber, char *committeeName,
-                char *projectName, char *categoryStr) {
+                char *projectName, char *categoryStr, tListC *listC) {
     bool isEco = (strcmp(categoryStr, "eco") == 0);
 
     printf("********************\n");
     printf("%s N: committee %s project %s category %s\n",
            commandNumber, committeeName, projectName, categoryStr);
 
-    tPosC posC = findItemC(committeeName, committeeList);
+    tPosC posC = findItemC(committeeName, *listC);
     if (posC == NULLC) {
         printf("+ Error: New not possible\n");
         return;
     }
 
-    tItemC committee = getItemC(posC, committeeList);
+    tItemC committee = getItemC(posC, *listC);
 
     if (findItemP(projectName, committee.projectList) != NULLP) {
         printf("+ Error: New not possible\n");
@@ -138,7 +137,7 @@ void processNew(char *commandNumber, char *committeeName,
         return;
     }
 
-    updateItemC(committee, posC, &committeeList);
+    updateItemC(committee, posC, listC);
 
     printf("* New: committee %s project %s category %s\n",
            committeeName, projectName, categoryStr);
@@ -152,29 +151,30 @@ void processNew(char *commandNumber, char *committeeName,
  *           Proyecto encontrado → incrementa contadores.
  * Entradas: commandNumber - número de orden;
  *           committeeName - nombre del comité;
- *           projectName   - nombre del proyecto.
+ *           projectName   - nombre del proyecto;
+ *           listC         - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: La lista de comités está inicializada.
  * Postcondiciones: Contadores actualizados.
  * ------------------------------------------------------- */
 void processVote(char *commandNumber, char *committeeName,
-                 char *projectName) {
+                 char *projectName, tListC *listC) {
     printf("********************\n");
     printf("%s V: committee %s project %s\n",
            commandNumber, committeeName, projectName);
 
-    tPosC posC = findItemC(committeeName, committeeList);
+    tPosC posC = findItemC(committeeName, *listC);
     if (posC == NULLC) {
         printf("+ Error: Vote not possible\n");
         return;
     }
 
-    tItemC committee = getItemC(posC, committeeList);
+    tItemC committee = getItemC(posC, *listC);
     tPosP  posP      = findItemP(projectName, committee.projectList);
 
     if (posP == NULLP) {
         committee.nullVotes++;
-        updateItemC(committee, posC, &committeeList);
+        updateItemC(committee, posC, listC);
         printf("+ Error: Vote not possible. Project %s not found in committee %s. NULLVOTE\n",
                projectName, committeeName);
         return;
@@ -184,7 +184,7 @@ void processVote(char *commandNumber, char *committeeName,
     project.numVotes++;
     updateItemP(project, posP, &committee.projectList);
     committee.validVotes++;
-    updateItemC(committee, posC, &committeeList);
+    updateItemC(committee, posC, listC);
 
     printf("* Vote: committee %s project %s category %s numvotes %d\n",
            committeeName, projectName,
@@ -198,26 +198,28 @@ void processVote(char *commandNumber, char *committeeName,
  *           transfiriendo sus votos a nullVotes.
  *           Lista vacía → error.
  * Entradas: commandNumber - número de orden;
- *           projectName   - nombre del proyecto.
+ *           projectName   - nombre del proyecto;
+ *           listC         - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: La lista de comités está inicializada.
  * Postcondiciones: El proyecto eliminado de todos los comités
  *                  donde existía; sus votos pasan a nullVotes.
  * ------------------------------------------------------- */
-void processDisqualify(char *commandNumber, char *projectName) {
+void processDisqualify(char *commandNumber, char *projectName,
+                       tListC *listC) {
     printf("********************\n");
     printf("%s D: project %s\n", commandNumber, projectName);
 
-    if (isEmptyListC(committeeList)) {
+    if (isEmptyListC(*listC)) {
         printf("+ Error: Disqualify not possible\n");
         return;
     }
 
-    tPosC posC  = firstC(committeeList);
+    tPosC posC  = firstC(*listC);
     bool  first = true;
 
     while (posC != NULLC) {
-        tItemC committee = getItemC(posC, committeeList);
+        tItemC committee = getItemC(posC, *listC);
 
         if (!first) printf("\n");
         first = false;
@@ -232,11 +234,11 @@ void processDisqualify(char *commandNumber, char *projectName) {
             committee.nullVotes  += project.numVotes;
             committee.validVotes -= project.numVotes;
             deleteAtPositionP(posP, &committee.projectList);
-            updateItemC(committee, posC, &committeeList);
+            updateItemC(committee, posC, listC);
             printf("Project %s disqualified\n", projectName);
         }
 
-        posC = nextC(posC, committeeList);
+        posC = nextC(posC, *listC);
     }
 }
 
@@ -244,43 +246,43 @@ void processDisqualify(char *commandNumber, char *projectName) {
  * processRemove
  * Objetivo: Elimina todos los comités con 0 votos válidos.
  *           Sin candidatos o lista vacía → error.
- * Entradas: commandNumber - número de orden.
+ * Entradas: commandNumber - número de orden;
+ *           listC         - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: La lista de comités está inicializada.
  * Postcondiciones: Comités con validVotes==0 eliminados.
  * ------------------------------------------------------- */
-void processRemove(char *commandNumber) {
+void processRemove(char *commandNumber, tListC *listC) {
     printf("********************\n");
     printf("%s R:\n", commandNumber);
 
-    if (isEmptyListC(committeeList)) {
+    if (isEmptyListC(*listC)) {
         printf("+ Error: Remove not possible\n");
         return;
     }
 
-    bool removed = false;
-    tPosC posC = firstC(committeeList);
+    bool  removed = false;
+    tPosC posC    = firstC(*listC);
 
     while (posC != NULLC) {
-        tItemC committee = getItemC(posC, committeeList);
+        tItemC committee = getItemC(posC, *listC);
 
         if (committee.validVotes == 0) {
             printf("* Remove: committee %s\n", committee.committeeName);
 
-            /* Vaciamos la lista de proyectos antes de borrar el comité
-               (precondición de deleteAtPositionC) */
+            /* Vaciamos proyectos antes de borrar (precondición deleteAtPositionC) */
             while (!isEmptyListP(committee.projectList)) {
                 deleteAtPositionP(firstP(committee.projectList),
                                   &committee.projectList);
             }
-            updateItemC(committee, posC, &committeeList);
-            deleteAtPositionC(posC, &committeeList);
+            updateItemC(committee, posC, listC);
+            deleteAtPositionC(posC, listC);
             removed = true;
-            /* Tras el borrado, el elemento que estaba en posC+1 pasa a posC.
-               No avanzamos posC: el mismo índice ahora apunta al siguiente. */
-            if (posC >= committeeList.count) break;
+            /* Tras el borrado los índices se desplazan -1;
+               el mismo posC ahora apunta al siguiente elemento */
+            if (posC >= listC->count) break;
         } else {
-            posC = nextC(posC, committeeList);
+            posC = nextC(posC, *listC);
         }
     }
 
@@ -295,36 +297,36 @@ void processRemove(char *commandNumber) {
  *           categoría. Empate o sin proyectos → "No winner".
  *           Un único proyecto con 0 votos sí es ganador.
  *           Lista vacía → error.
- * Entradas: commandNumber - número de orden.
+ * Entradas: commandNumber - número de orden;
+ *           listC         - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: La lista de comités está inicializada.
  * Postcondiciones: (ninguna).
  * ------------------------------------------------------- */
-void processWinners(char *commandNumber) {
+void processWinners(char *commandNumber, tListC *listC) {
     printf("********************\n");
     printf("%s W:\n", commandNumber);
 
-    if (isEmptyListC(committeeList)) {
+    if (isEmptyListC(*listC)) {
         printf("+ Error: Winners not possible\n");
         return;
     }
 
-    tPosC posC           = firstC(committeeList);
+    tPosC posC           = firstC(*listC);
     bool  firstCommittee = true;
 
     while (posC != NULLC) {
-        tItemC committee = getItemC(posC, committeeList);
+        tItemC committee = getItemC(posC, *listC);
 
         if (!firstCommittee) printf("\n");
         firstCommittee = false;
 
         printf("Committee %s\n", committee.committeeName);
 
-        /* Rastreamos ganador eco y non-eco por separado */
-        tPosP winnerEcoPos    = NULLP;
-        int   winnerEcoVotes  = -1;
-        bool  ecoTie          = false;
-        int   ecoCount        = 0;
+        tPosP winnerEcoPos      = NULLP;
+        int   winnerEcoVotes    = -1;
+        bool  ecoTie            = false;
+        int   ecoCount          = 0;
 
         tPosP winnerNonEcoPos   = NULLP;
         int   winnerNonEcoVotes = -1;
@@ -359,7 +361,6 @@ void processWinners(char *commandNumber) {
             }
         }
 
-        /* Categoría eco */
         if (ecoCount == 0 || (ecoCount > 1 && ecoTie)) {
             printf("Category eco: No winner\n");
         } else {
@@ -368,7 +369,6 @@ void processWinners(char *commandNumber) {
                    w.projectName, w.numVotes);
         }
 
-        /* Categoría non-eco */
         if (nonEcoCount == 0 || (nonEcoCount > 1 && nonEcoTie)) {
             printf("Category non-eco: No winner\n");
         } else {
@@ -377,7 +377,7 @@ void processWinners(char *commandNumber) {
                    w.projectName, w.numVotes);
         }
 
-        posC = nextC(posC, committeeList);
+        posC = nextC(posC, *listC);
     }
     printf("\n");
 }
@@ -386,24 +386,25 @@ void processWinners(char *commandNumber) {
  * processStats
  * Objetivo: Muestra estadísticas de todos los comités.
  *           Lista vacía → error.
- * Entradas: commandNumber - número de orden.
+ * Entradas: commandNumber - número de orden;
+ *           listC         - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: La lista de comités está inicializada.
  * Postcondiciones: (ninguna).
  * ------------------------------------------------------- */
-void processStats(char *commandNumber) {
+void processStats(char *commandNumber, tListC *listC) {
     printf("********************\n");
     printf("%s S:\n", commandNumber);
 
-    if (isEmptyListC(committeeList)) {
+    if (isEmptyListC(*listC)) {
         printf("+ Error: Stats not possible\n");
         return;
     }
 
-    tPosC pos = firstC(committeeList);
+    tPosC pos = firstC(*listC);
     while (pos != NULLC) {
-        printStats(getItemC(pos, committeeList));
-        pos = nextC(pos, committeeList);
+        printStats(getItemC(pos, *listC));
+        pos = nextC(pos, *listC);
         printf("\n");
     }
 }
@@ -413,21 +414,23 @@ void processStats(char *commandNumber) {
  * Objetivo: Despacha cada operación al procesador correcto.
  * Entradas: commandNumber - número de orden;
  *           command       - carácter de operación;
- *           param1..3     - parámetros opcionales.
+ *           param1..3     - parámetros opcionales;
+ *           listC         - puntero a la lista de comités.
  * Salidas: (ninguna).
- * Precondiciones: La lista global está inicializada.
+ * Precondiciones: La lista está inicializada.
  * Postcondiciones: (ninguna).
  * ------------------------------------------------------- */
 void processCommand(char *commandNumber, char command,
-                    char *param1, char *param2, char *param3) {
+                    char *param1, char *param2, char *param3,
+                    tListC *listC) {
     switch (command) {
-        case 'C': processCreate(commandNumber, param1, param2);            break;
-        case 'N': processNew(commandNumber, param1, param2, param3);       break;
-        case 'V': processVote(commandNumber, param1, param2);              break;
-        case 'S': processStats(commandNumber);                             break;
-        case 'D': processDisqualify(commandNumber, param1);                break;
-        case 'R': processRemove(commandNumber);                            break;
-        case 'W': processWinners(commandNumber);                           break;
+        case 'C': processCreate(commandNumber, param1, param2, listC);           break;
+        case 'N': processNew(commandNumber, param1, param2, param3, listC);      break;
+        case 'V': processVote(commandNumber, param1, param2, listC);             break;
+        case 'S': processStats(commandNumber, listC);                            break;
+        case 'D': processDisqualify(commandNumber, param1, listC);               break;
+        case 'R': processRemove(commandNumber, listC);                           break;
+        case 'W': processWinners(commandNumber, listC);                          break;
         default:  break;
     }
 }
@@ -435,12 +438,13 @@ void processCommand(char *commandNumber, char command,
 /* -------------------------------------------------------
  * readTasks
  * Objetivo: Lee el fichero y procesa cada operación.
- * Entradas: filename - ruta del fichero de entrada.
+ * Entradas: filename - ruta del fichero de entrada;
+ *           listC    - puntero a la lista de comités.
  * Salidas: (ninguna).
  * Precondiciones: El fichero existe con el formato esperado.
  * Postcondiciones: (ninguna).
  * ------------------------------------------------------- */
-void readTasks(char *filename) {
+void readTasks(char *filename, tListC *listC) {
     FILE *f = NULL;
     char *commandNumber, *command, *param1, *param2, *param3;
     const char delimiters[] = " \n\r";
@@ -454,7 +458,7 @@ void readTasks(char *filename) {
             param1        = strtok(NULL, delimiters);
             param2        = strtok(NULL, delimiters);
             param3        = strtok(NULL, delimiters);
-            processCommand(commandNumber, command[0], param1, param2, param3);
+            processCommand(commandNumber, command[0], param1, param2, param3, listC);
         }
         fclose(f);
     } else {
@@ -464,7 +468,8 @@ void readTasks(char *filename) {
 
 /* -------------------------------------------------------
  * main
- * Objetivo: Inicializa la lista global y lanza la lectura.
+ * Objetivo: Declara la lista de comités en local, la
+ *           inicializa y lanza la lectura del fichero.
  * Entradas: nargs - número de argumentos; args - argumentos.
  * Salidas: 0.
  * Precondiciones: (ninguna).
@@ -472,6 +477,7 @@ void readTasks(char *filename) {
  * ------------------------------------------------------- */
 int main(int nargs, char **args) {
     char *file_name = "create.txt";
+    tListC listC;  /* variable local, se pasa por puntero a todo */
 
     if (nargs > 1) {
         file_name = args[1];
@@ -481,7 +487,7 @@ int main(int nargs, char **args) {
         #endif
     }
 
-    createEmptyListC(&committeeList);
-    readTasks(file_name);
+    createEmptyListC(&listC);
+    readTasks(file_name, &listC);
     return 0;
 }
