@@ -1,6 +1,6 @@
 ********************
 01 C: committee committee1 totalevaluators 10
-* Create: committee committee1 totalEvaluators 10
+* Create: committee committee1 totalevaluators 10
 ********************
 02 S:
 Committee committee1
@@ -10,7 +10,7 @@ Participation: 0 votes from 10 evaluators (0.00%)
 
 ********************
 03 C: committee committee2 totalevaluators 10
-* Create: committee committee2 totalEvaluators 10
+* Create: committee committee2 totalevaluators 10
 ********************
 04 S:
 Committee committee1
@@ -25,7 +25,7 @@ Participation: 0 votes from 10 evaluators (0.00%)
 
 ********************
 05 C: committee committee3 totalevaluators 10
-* Create: committee committee3 totalEvaluators 10
+* Create: committee committee3 totalevaluators 10
 ********************
 06 S:
 Committee committee1
@@ -51,7 +51,7 @@ Participation: 0 votes from 10 evaluators (0.00%)
 Committee committee1
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 Committee committee2
 No projects
@@ -71,12 +71,12 @@ Participation: 0 votes from 10 evaluators (0.00%)
 Committee committee1
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 Committee committee2
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 Committee committee3
 No projects
@@ -91,17 +91,17 @@ Participation: 0 votes from 10 evaluators (0.00%)
 Committee committee1
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 Committee committee2
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 Committee committee3
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 ********************
 13 V: committee committee3 project project1
@@ -111,17 +111,17 @@ Participation: 0 votes from 10 voters (0.00%)
 Committee committee1
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 Committee committee2
 Project project1 category eco numvotes 0 (0.00%)
 Nullvotes 0
-Participation: 0 votes from 10 voters (0.00%)
+Participation: 0 votes from 10 evaluators (0.00%)
 
 Committee committee3
 Project project1 category eco numvotes 1 (100.00%)
 Nullvotes 0
-Participation: 1 votes from 10 voters (10.00%)
+Participation: 1 votes from 10 evaluators (10.00%)
 
 ********************
 15 R:
@@ -132,5 +132,5 @@ Participation: 1 votes from 10 voters (10.00%)
 Committee committee3
 Project project1 category eco numvotes 1 (100.00%)
 Nullvotes 0
-Participation: 1 votes from 10 voters (10.00%)
+Participation: 1 votes from 10 evaluators (10.00%)
 
